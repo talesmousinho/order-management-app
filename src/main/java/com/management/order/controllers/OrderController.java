@@ -60,12 +60,12 @@ public class OrderController {
   }
 
   @PostMapping
-  public ResponseEntity<Order> save(@RequestBody Order order) {
+  public ResponseEntity<Order> create(@RequestBody Order order) {
     try {
       order.setId(null);
       return ResponseEntity.ok(orderService.save(order));
     } catch (Exception e) {
-      logger.error("Error ocurred while trying to save a new order: " + e.getMessage());
+      logger.error("Error ocurred while trying to create an order: " + e.getMessage());
       return ResponseEntity.badRequest().build();
     }
   }

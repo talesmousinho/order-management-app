@@ -60,12 +60,12 @@ public class ItemController {
   }
 
   @PostMapping
-  public ResponseEntity<Item> save(@RequestBody Item item) {
+  public ResponseEntity<Item> create(@RequestBody Item item) {
     try {
       item.setId(null);
       return ResponseEntity.ok(itemService.save(item));
     } catch (Exception e) {
-      logger.error("Error ocurred while trying to save a new item: " + e.getMessage());
+      logger.error("Error ocurred while trying to create an item: " + e.getMessage());
       return ResponseEntity.badRequest().build();
     }
   }

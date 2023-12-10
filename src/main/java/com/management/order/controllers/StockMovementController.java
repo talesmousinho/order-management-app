@@ -60,12 +60,12 @@ public class StockMovementController {
   }
 
   @PostMapping
-  public ResponseEntity<StockMovement> save(@RequestBody StockMovement stockMovement) {
+  public ResponseEntity<StockMovement> create(@RequestBody StockMovement stockMovement) {
     try {
       stockMovement.setId(null);
       return ResponseEntity.ok(stockMovementService.save(stockMovement));
     } catch (Exception e) {
-      logger.error("Error ocurred while trying to save a new stock movement: " + e.getMessage());
+      logger.error("Error ocurred while trying to create a stock movement: " + e.getMessage());
       return ResponseEntity.badRequest().build();
     }
   }

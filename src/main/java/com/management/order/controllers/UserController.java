@@ -60,12 +60,12 @@ public class UserController {
   }
 
   @PostMapping
-  public ResponseEntity<User> save(@RequestBody User user) {
+  public ResponseEntity<User> create(@RequestBody User user) {
     try {
       user.setId(null);
       return ResponseEntity.ok(userService.save(user));
     } catch (Exception e) {
-      logger.error("Error ocurred while trying to save a new user: " + e.getMessage());
+      logger.error("Error ocurred while trying to create an user: " + e.getMessage());
       return ResponseEntity.badRequest().build();
     }
   }
