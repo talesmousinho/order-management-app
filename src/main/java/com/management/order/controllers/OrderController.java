@@ -62,6 +62,9 @@ public class OrderController {
   @PostMapping
   public ResponseEntity<Order> create(@RequestBody Order order) {
     try {
+      if (order.getQuantity() <= 0) {
+        return ResponseEntity.badRequest().build();
+      }
       order.setId(null);
       return ResponseEntity.ok(orderService.save(order));
     } catch (Exception e) {
