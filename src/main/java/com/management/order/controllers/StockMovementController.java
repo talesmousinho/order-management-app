@@ -2,6 +2,8 @@ package com.management.order.controllers;
 
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,10 +47,12 @@ public class StockMovementController {
   public ResponseEntity<StockMovement> findById(@PathVariable Long id) {
     try {
       StockMovement stockMovement = stockMovementService.findById(id);
-      if (stockMovement == null) {
-        return ResponseEntity.notFound().build();
-      }
       return ResponseEntity.ok(stockMovement);
+
+    } catch (EntityNotFoundException e) {
+      logger.error("Error ocurred while trying to find a stock movement: " + e.getMessage());
+      return ResponseEntity.notFound().build();
+
     } catch (Exception e) {
       logger.error("Error ocurred while trying to find a stock movement: " + e.getMessage());
       return ResponseEntity.badRequest().build();
@@ -69,8 +73,16 @@ public class StockMovementController {
   @PutMapping("{id}")
   public ResponseEntity<StockMovement> update(@PathVariable Long id, @RequestBody StockMovement stockMovement) {
     try {
+      // check if the stock movement exists
+      stockMovementService.findById(id);
+      // update stock movement
       stockMovement.setId(id);
       return ResponseEntity.ok(stockMovementService.save(stockMovement));
+    
+    } catch (EntityNotFoundException e) {
+      logger.error("Error ocurred while trying to update a stock movement: " + e.getMessage());
+      return ResponseEntity.notFound().build();
+      
     } catch (Exception e) {
       logger.error("Error ocurred while trying to update a stock movement: " + e.getMessage());
       return ResponseEntity.badRequest().build();

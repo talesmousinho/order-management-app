@@ -2,6 +2,8 @@ package com.management.order.controllers;
 
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,10 +47,12 @@ public class UserController {
   public ResponseEntity<User> findById(@PathVariable Long id) {
     try {
       User user = userService.findById(id);
-      if (user == null) {
-        return ResponseEntity.notFound().build();
-      }
       return ResponseEntity.ok(user);
+
+    } catch (EntityNotFoundException e) {
+      logger.error("Error ocurred while trying to find an user: " + e.getMessage());
+      return ResponseEntity.notFound().build();
+
     } catch (Exception e) {
       logger.error("Error ocurred while trying to find an user: " + e.getMessage());
       return ResponseEntity.badRequest().build();
@@ -69,8 +73,16 @@ public class UserController {
   @PutMapping("{id}")
   public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User user) {
     try {
+      // check if user exists
+      userService.findById(id);
+      // update user
       user.setId(id);
       return ResponseEntity.ok(userService.save(user));
+      
+    } catch (EntityNotFoundException e) {
+      logger.error("Error ocurred while trying to update an user: " + e.getMessage());
+      return ResponseEntity.notFound().build();
+
     } catch (Exception e) {
       logger.error("Error ocurred while trying to update an user: " + e.getMessage());
       return ResponseEntity.badRequest().build();

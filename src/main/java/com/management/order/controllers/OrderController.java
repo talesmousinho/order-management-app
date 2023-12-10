@@ -2,6 +2,8 @@ package com.management.order.controllers;
 
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,10 +47,12 @@ public class OrderController {
   public ResponseEntity<Order> findById(@PathVariable Long id) {
     try {
       Order order = orderService.findById(id);
-      if (order == null) {
-        return ResponseEntity.notFound().build();
-      }
       return ResponseEntity.ok(order);
+
+    } catch (EntityNotFoundException e) {
+      logger.error("Error ocurred while trying to find an order: " + e.getMessage());
+      return ResponseEntity.notFound().build();
+
     } catch (Exception e) {
       logger.error("Error ocurred while trying to find an order: " + e.getMessage());
       return ResponseEntity.badRequest().build();
@@ -69,8 +73,16 @@ public class OrderController {
   @PutMapping("{id}")
   public ResponseEntity<Order> update(@PathVariable Long id, @RequestBody Order order) {
     try {
+      // check if order exists
+      orderService.findById(id);
+      // update order
       order.setId(id);
       return ResponseEntity.ok(orderService.save(order));
+
+    } catch (EntityNotFoundException e) {
+      logger.error("Error ocurred while trying to update an order: " + e.getMessage());
+      return ResponseEntity.notFound().build();
+
     } catch (Exception e) {
       logger.error("Error ocurred while trying to update an order: " + e.getMessage());
       return ResponseEntity.badRequest().build();
