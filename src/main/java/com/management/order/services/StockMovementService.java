@@ -2,6 +2,8 @@ package com.management.order.services;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +22,8 @@ public class StockMovementService extends GenericCRUDService<StockMovement, Long
 
   @Autowired
   private EmailService emailService;
+
+  private static final Logger logger = LogManager.getLogger(EmailService.class);
 
   public StockMovementService(StockMovementRepository stockMovementRepository) {
     super(stockMovementRepository);
@@ -53,6 +57,7 @@ public class StockMovementService extends GenericCRUDService<StockMovement, Long
         order.setCompleted(true);
         orderRepository.save(order);
         emailService.sendOrderCompletionEmail(order);
+        logger.info("Order with ID {} is completed", order.getId());
 
         addedQuantity -= requiredQuantity;
       } else {
