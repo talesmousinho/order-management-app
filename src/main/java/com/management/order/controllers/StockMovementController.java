@@ -62,6 +62,10 @@ public class StockMovementController {
   @PostMapping
   public ResponseEntity<StockMovement> create(@RequestBody StockMovement stockMovement) {
     try {
+      if (stockMovement.getOrder() != null) {
+        return ResponseEntity.badRequest().build();
+      }
+      
       stockMovement.setId(null);
       return ResponseEntity.ok(stockMovementService.save(stockMovement));
     } catch (Exception e) {
