@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -35,5 +37,10 @@ public class StockMovement {
   @NotNull
   @Column(nullable = false)
   private int quantity;
+
+  @JsonBackReference
+  @ManyToOne
+  @JoinColumn(nullable = true)
+  private Order order;
 
 }
