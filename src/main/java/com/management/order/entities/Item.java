@@ -23,4 +23,9 @@ public class Item {
   @Column(nullable = false)
   private String name;
 
+  public Item(Long id, String name) {
+    this.id = id;
+    this.name = name;
+  }
+
 }
