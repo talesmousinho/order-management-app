@@ -18,6 +18,9 @@ public class StockMovementService extends GenericCRUDService<StockMovement, Long
   @Autowired
   private OrderRepository orderRepository;
 
+  @Autowired
+  private EmailService emailService;
+
   public StockMovementService(StockMovementRepository stockMovementRepository) {
     super(stockMovementRepository);
   }
@@ -49,6 +52,7 @@ public class StockMovementService extends GenericCRUDService<StockMovement, Long
         // update order status to completed and send email
         order.setCompleted(true);
         orderRepository.save(order);
+        emailService.sendOrderCompletionEmail(order);
 
         addedQuantity -= requiredQuantity;
       } else {

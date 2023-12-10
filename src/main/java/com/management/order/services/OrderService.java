@@ -18,6 +18,9 @@ public class OrderService extends GenericCRUDService<Order, Long> {
   @Autowired
   private StockMovementRepository stockMovementRepository;
 
+  @Autowired
+  private EmailService emailService;
+
   public OrderService(OrderRepository orderRepository) {
     super(orderRepository);
   }
@@ -61,6 +64,7 @@ public class OrderService extends GenericCRUDService<Order, Long> {
     // if order is fulfilled, set isCompleted to true
     if (requiredQuantity == 0) {
       order.setCompleted(true);
+      emailService.sendOrderCompletionEmail(order);
     }
 
     Order savedOrder = super.save(order);
