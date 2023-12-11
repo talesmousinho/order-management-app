@@ -372,7 +372,15 @@ curl -X POST -H "Content-Type: application/json" -d '{"item":{"id":1},"quantity"
 
 Sample success response:
 ```json
-
+{
+  "id": 1,
+  "item": {
+    "id": 1,
+    "name": "Item 1"
+  },
+  "quantity": 10,
+  "creationDate": "2022-01-01T00:00:00.000+00:00"
+}
 ```
 
 #### PUT /api/v1/stock-movements/{id}
