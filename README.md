@@ -224,19 +224,47 @@ Sample success response:
 ```json
 [
   {
-    "id": 1,
+      "id": 2,
+      "creationDate": "2023-01-01T10:00:00Z",
+      "item": {
+        "id": 1,
+        "name": "Item 1"
+      },
+      "quantity": 5,
+      "user": {
+          "id": 1,
+          "name": "User 1",
+          "email": "user1@example.com"
+      },
+      "stockMovements": [],
+      "completed": false
+  },
+  {
+    "id": 3,
+    "creationDate": "2023-01-01T10:00:00Z",
     "item": {
       "id": 1,
       "name": "Item 1"
     },
-    "quantity": 2,
+    "quantity": 5,
     "user": {
       "id": 1,
       "name": "User 1",
       "email": "user1@example.com"
-    }
-  },
-  // More orders...
+    },
+    "stockMovements": [
+      {
+        "id": 1,
+        "creationDate": "2023-01-01T10:00:00Z",
+        "item": {
+          "id": 1,
+          "name": "Item 1"
+        },
+        "quantity": 5
+      }
+    ],
+    "completed": true
+  }
 ]
 ```
 
@@ -252,16 +280,29 @@ Sample success response:
 ```json
 {
   "id": 1,
+  "creationDate": "2023-01-01T10:00:00Z",
   "item": {
     "id": 1,
     "name": "Item 1"
   },
-  "quantity": 2,
+  "quantity": 5,
   "user": {
     "id": 1,
     "name": "User 1",
     "email": "user1@example.com"
-  }
+  },
+  "stockMovements": [
+    {
+      "id": 1,
+      "creationDate": "2023-01-01T10:00:00Z",
+      "item": {
+        "id": 1,
+        "name": "Item 1"
+      },
+      "quantity": 5
+    }
+  ],
+  "completed": true
 }
 ```
 
@@ -272,23 +313,26 @@ This endpoint creates a new order.
 Sample request:
 
 ```sh
-curl -X POST -H "Content-Type: application/json" -d '{"item":{"id":1},"quantity":2,"user":{"id":1}}' http://localhost:8080/api/v1/orders
+curl -X POST -H "Content-Type: application/json" -d '{"item":{"id":1},"quantity":5,"user":{"id":1}}' http://localhost:8080/api/v1/orders
 ```
 
 Sample success response:
 ```json
 {
   "id": 1,
+  "creationDate": "2023-01-01T10:00:00Z",
   "item": {
     "id": 1,
     "name": "Item 1"
   },
-  "quantity": 2,
+  "quantity": 5,
   "user": {
     "id": 1,
     "name": "User 1",
     "email": "user1@example.com"
-  }
+  },
+  "stockMovements": [],
+  "completed": false
 }
 ```
 
@@ -297,23 +341,26 @@ This endpoint updates an existing order.
 
 Sample request:
 ```sh
-curl -X PUT -H "Content-Type: application/json" -d '{"item":{"id":1},"quantity":3,"user":{"id":1}}' http://localhost:8080/api/v1/orders/1
+curl -X PUT -H "Content-Type: application/json" -d '{"item":{"id":1},"quantity":10,"user":{"id":1}}' http://localhost:8080/api/v1/orders/1
 ```
 
 Sample success response:
 ```json
 {
   "id": 1,
+  "creationDate": "2023-01-01T10:00:00Z",
   "item": {
     "id": 1,
     "name": "Item 1"
   },
-  "quantity": 3,
+  "quantity": 10,
   "user": {
     "id": 1,
     "name": "User 1",
     "email": "user1@example.com"
-  }
+  },
+  "stockMovements": [],
+  "completed": false
 }
 ```
 
