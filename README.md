@@ -2,6 +2,26 @@
 
 This project is a solution to a simple order management exercise. The goal was to develop an API where users can create and manage orders. Items can be ordered and orders are automatically fulfilled as soon as the item stock allows it.
 
+## Index
+- [Summary](#summary)
+- [Features](#features)
+- [Entities](#entities)
+- [Requirements](#requirements)
+- [Issues](#issues)
+- [How to Run](#how-to-run)
+- [API Endpoints](#api-endpoints)
+  - [Item Controller](#item-controller)
+  - [Order Controller](#order-controller)
+  - [StockMovement Controller](#stockmovement-controller)
+  - [User Controller](#user-controller)
+  
+## Summary
+
+The Order Management System is a RESTful API designed to handle the lifecycle of orders in a simple inventory system. It allows users to create, read, update, and delete entities such as Items, Orders, Stock Movements, and Users. 
+The system is designed to automatically fulfill orders based on the current stock and attribute stock movements to incomplete orders. It also provides a tracking feature to trace the list of stock movements used to complete an order and vice versa. 
+Upon completion of an order, the system sends an email notification to the user who created the order. It also maintains a log file recording completed orders, stock movements, sent emails, and errors.
+The API is built using Java 8, Spring Boot, Spring JPA, PostgreSQL, GIT, and log4j. It is designed to be easy to set up and run, with detailed instructions provided in the "How to Run" section.
+
 ## Features
 
 The system provides the following features:
@@ -84,7 +104,7 @@ java -jar target/order-management-server-0.0.1-SNAPSHOT.jar
 
 The application will start running at http://localhost:8000.
 
-## Note
+### Note
 Make sure that PostgreSQL is running on your machine before starting the application.
 
 ## API Endpoints
