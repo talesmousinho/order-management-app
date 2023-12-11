@@ -395,15 +395,23 @@ Sample success response:
 ```json
 [
   {
-    "id": 1,
+    "id": 2,
+    "creationDate": "2023-01-01T10:00:00Z",
     "item": {
       "id": 1,
       "name": "Item 1"
     },
-    "quantity": 10,
-    "creationDate": "2022-01-01T00:00:00.000+00:00"
+    "quantity": 5
   },
-  // More stock movements...
+  {
+    "id": 1,
+    "creationDate": "2023-01-01T10:00:00Z",
+    "item": {
+      "id": 1,
+      "name": "Item 1"
+    },
+    "quantity": 10
+  }
 ]
 ```
 
@@ -419,12 +427,12 @@ Sample success response:
 ```json
 {
   "id": 1,
+  "creationDate": "2023-01-01T10:00:00Z",
   "item": {
     "id": 1,
     "name": "Item 1"
   },
-  "quantity": 10,
-  "creationDate": "2022-01-01T00:00:00.000+00:00"
+  "quantity": 10
 }
 ```
 
@@ -434,19 +442,19 @@ This endpoint creates a new stock movement.
 
 Sample request:
 ```sh
-curl -X POST -H "Content-Type: application/json" -d '{"item":{"id":1},"quantity":10}' http://localhost:8080/api/v1/stock-movements
+curl -X POST -H "Content-Type: application/json" -d '{"item":{"id":1},"quantity":10,"creationDate": "2023-01-01T00:00:00Z"}' http://localhost:8080/api/v1/stock-movements
 ```
 
 Sample success response:
 ```json
 {
   "id": 1,
+  "creationDate": "2022-01-01T00:00:00Z",
   "item": {
     "id": 1,
     "name": "Item 1"
   },
-  "quantity": 10,
-  "creationDate": "2022-01-01T00:00:00.000+00:00"
+  "quantity": 10
 }
 ```
 
@@ -462,12 +470,12 @@ Sample success response:
 ```json
 {
   "id": 1,
+  "creationDate": "2023-01-01T00:00:00.000+00:00",
   "item": {
     "id": 1,
     "name": "Item 1"
   },
-  "quantity": 10,
-  "creationDate": "2023-01-01T00:00:00.000+00:00"
+  "quantity": 15
 }
 ```
 
